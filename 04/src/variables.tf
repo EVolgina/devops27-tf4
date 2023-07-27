@@ -27,10 +27,14 @@ variable "default_cidr" {
 
 variable "vpc_name" {
   type        = string
-  default     = "develop"
   description = "VPC network&subnet name"
 }
 
+variable "ssh_public_key" {
+  type    = string
+  default = ""
+  description = "SSH public key for cloud-init.yml"
+}
 ###common vars
 
 variable "vms_ssh_root_key" {
@@ -45,13 +49,21 @@ variable "vm_web_name" {
   default     = "netology-develop-platform-web"
   description = "example vm_web_ prefix"
 }
+###ssh map vers
+variable "vms_ssh_root_key" {
+  type = map(any)
+  default = {
+   serial-port-enable   = 1
+   ssh-keys             = "ssh-rsa "
+  }
+}
 
 ###example vm_db var
-variable "vm_db_name" {
-  type        = string
-  default     = "netology-develop-platform-db"
-  description = "example vm_db_ prefix"
-}
+#variable "vm_db_name" {
+#  type        = string
+#  default     = "netology-develop-platform-db"
+#  description = "example vm_db_ prefix"
+#}
 
 
 

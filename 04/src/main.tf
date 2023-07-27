@@ -1,3 +1,4 @@
+#./04/src/main.tf
 resource "yandex_vpc_network" "develop" {
   name = var.vpc_name
 }
@@ -8,3 +9,10 @@ resource "yandex_vpc_subnet" "develop" {
   v4_cidr_blocks = var.default_cidr
 }
 
+#module "vpc_module" {
+#  source          = "./vpc_module"
+#  vpc_name        = "test"
+#  token           = var.token
+#  cloude_id       = var.cloude_id
+#  folder_id       = var.folder_id
+#}

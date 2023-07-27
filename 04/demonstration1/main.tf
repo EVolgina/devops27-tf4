@@ -1,24 +1,16 @@
-terraform {
-  required_providers {
-    yandex = {
-      source = "yandex-cloud/yandex"
-    }
-  }
-  required_version = ">=0.13"
+#./demonstration1/main.tf
+module "vpc_module" {
+  source          = "./vpc_module"
+  vpc_name        = "test"
+  token           = var.token
+  cloude_id       = var.cloude_id
+  folder_id       = var.folder_id
 }
-
-provider "yandex" {
-  token     = var.token
-  cloud_id  = var.cloud_id
-  folder_id = var.folder_id
-  zone      = var.default_zone
-}
-
 
 
 #создаем облачную сеть
 resource "yandex_vpc_network" "develop" {
-  name = "develop"
+  name = var.vpc_name
 }
 
 #создаем подсеть
@@ -44,11 +36,19 @@ module "test-vm" {
       user-data          = data.template_file.cloudinit.rendered #Для демонстрации №3
       serial-port-enable = 1
   }
-
+  metadata = {
+    serial-port-enable = var.vms_ssh_root_key.serial-port-enable
+    ssh-keys           = var.vms_ssh_root_key.ssh-keys
+  }
 }
-
-#Пример передачи cloud-config в ВМ для демонстрации №3
 data "template_file" "cloudinit" {
- template = file("./cloud-init.yml")
+  template = file("${path.module}/cloud-init.yml")
+
+  vars = {
+    username           = "ubuntu"
+    ssh_public_key     = var.ssh_public_key
+    packages           = jsonencode(["vim", "nginx"])
+  }
 }
 
+  
