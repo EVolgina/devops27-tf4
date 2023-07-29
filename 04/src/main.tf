@@ -9,10 +9,14 @@ resource "yandex_vpc_subnet" "develop" {
   v4_cidr_blocks = var.default_cidr
 }
 
-#module "vpc_module" {
-#  source          = "./vpc_module"
-#  vpc_name        = "test"
-#  token           = var.token
-#  cloude_id       = var.cloude_id
-#  folder_id       = var.folder_id
-#}
+module "vpc_module" {
+  source          = "./vpc_module"
+  vpc_name        = "test2"
+  default_zone    = "ru-central1-a"
+  v4_cidr_blocks  = ["10.0.1.0/24"]
+}
+terraform {
+  backend "local" {
+    path = "terraform.tfstate"
+  }
+}
