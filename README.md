@@ -62,8 +62,121 @@ file "VPC.md"
 - Полностью удалите из стейта модуль vm.
 - Импортируйте все обратно. Проверьте terraform plan - изменений быть не должно.
 - Приложите список выполненных команд и скриншоты процессы.
-### 
+### Ответ:
+```
+devops@WORKBOOK:~/ter-homeworks/04/src$ terraform state list
+module.vpc_module.yandex_vpc_network.vpc
+module.vpc_module.yandex_vpc_subnet.subnet
+devops@WORKBOOK:~/ter-homeworks/04/src$ terraform state show module.vpc_module.yandex_vpc_network.vpc
+# module.vpc_module.yandex_vpc_network.vpc:
+resource "yandex_vpc_network" "vpc" {
+    created_at = "2023-07-29T13:01:59Z"
+    folder_id  = "b1gpoeqn2q7if0pboa4u"
+    id         = "enpe3coakvgvu82oj96c"
+    labels     = {}
+    name       = "test2"
+    subnet_ids = []
+}
+devops@WORKBOOK:~/ter-homeworks/04/src$ terraform state show module.vpc_module.yandex_vpc_subnet.subnet
+# module.vpc_module.yandex_vpc_subnet.subnet:
+resource "yandex_vpc_subnet" "subnet" {
+    created_at     = "2023-07-29T13:02:03Z"
+    folder_id      = "b1gpoeqn2q7if0pboa4u"
+    id             = "e9bsaoqpveg3eednp84q"
+    labels         = {}
+    name           = "test2"
+    network_id     = "enpe3coakvgvu82oj96c"
+    v4_cidr_blocks = [
+        "10.0.1.0/24",
+    ]
+    v6_cidr_blocks = []
+    zone           = "ru-central1-a"
+}
+```
+```
+devops@WORKBOOK:~/ter-homeworks/04/src$ terraform state rm module.vpc_module
+Removed module.vpc_module.yandex_vpc_network.vpc
+Removed module.vpc_module.yandex_vpc_subnet.subnet
+Successfully removed 2 resource instance(s).
+devops@WORKBOOK:~/ter-homeworks/04/src$ terraform import module.vpc_module.yandex_vpc_network.vpc enpe3coakvgvu82oj96c
+var.vpc_name
+  VPC network&subnet name
 
+  Enter a value: test2
+
+module.vpc_module.yandex_vpc_network.vpc: Importing from ID "enpe3coakvgvu82oj96c"...
+module.vpc_module.yandex_vpc_network.vpc: Import prepared!
+  Prepared yandex_vpc_network for import
+module.vpc_module.yandex_vpc_network.vpc: Refreshing state... [id=enpe3coakvgvu82oj96c]
+
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+```
+```
+terraform plan
+var.vpc_name
+  VPC network&subnet name
+
+  Enter a value: test2
+
+module.vpc_module.yandex_vpc_network.vpc: Refreshing state... [id=enpe3coakvgvu82oj96c]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # yandex_vpc_network.develop will be created
+  + resource "yandex_vpc_network" "develop" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "test2"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_subnet.develop will be created
+  + resource "yandex_vpc_subnet" "develop" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "test2"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.1.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+  # module.vpc_module.yandex_vpc_subnet.subnet will be created
+  + resource "yandex_vpc_subnet" "subnet" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "test2"
+      + network_id     = "enpe3coakvgvu82oj96c"
+      + v4_cidr_blocks = [
+          + "10.0.1.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if
+you run "terraform apply" now.
+```
 
 
 
