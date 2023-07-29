@@ -1,11 +1,19 @@
 # vpc_module/main.tf
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+       }
+  }
+  required_version = ">=0.13"
+}
 
 variable "vpc_name" {
   type        = string
   description = "Name of the VPC network"
 }
 
-variable "zone" {
+variable "default_zone" {
   type        = string
   description = "Zone for the VPC subnet, e.g., ru-central1-a"
 }
@@ -21,7 +29,7 @@ resource "yandex_vpc_network" "vpc" {
 
 resource "yandex_vpc_subnet" "subnet" {
   name           = var.vpc_name
-  zone           = var.zone
+  zone           = var.default_zone
   network_id     = yandex_vpc_network.vpc.id
   v4_cidr_blocks = var.v4_cidr_blocks
 }
