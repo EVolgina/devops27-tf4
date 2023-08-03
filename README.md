@@ -53,7 +53,6 @@ sudo terraform-docs markdown table "/home/devops/ter-homeworks/04/src" --output-
 file "VPC.md"
 
 ```
-[ссылка](https://github.com/EVolgina/devops27-tf4/blob/devops27-tf4/04/demonstration1/main.tf)
 
 ![vpc](https://github.com/EVolgina/devops27-tf4/blob/main/vpc.PNG)
 
