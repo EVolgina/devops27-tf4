@@ -31,7 +31,8 @@ variable "vpc_name" {
   description = "VPC network&subnet name"
 }
 
-variable "public_key" {
+variable "ssh_public_key" {
   type    = string
   default = ""
+  description = "SSH public key for cloud-init.yml"
 }
