@@ -1,4 +1,4 @@
-#vm.tf
+#vm.tf - файл из демонстрации
  data "template_file" "cloudinit" {
     template = file("${path.module}/cloud-init.yml")
  
