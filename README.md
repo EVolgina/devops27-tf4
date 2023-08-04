@@ -5,7 +5,7 @@
 - Предоставьте скриншот подключения к консоли и вывод команды sudo nginx -t.
 
 ###  Ответ
-![yovm]()
+![yovm](https://github.com/EVolgina/devops27-tf4/blob/ter04/yovm.PNG)
 ```
 devops@WORKBOOK:~/ter-homeworks/04/src$ ssh ubuntu@158.160.61.41
 hostkeys_find_by_key_hostfile: hostkeys_foreach failed for /etc/ssh/ssh_known_hosts: Permission denied
