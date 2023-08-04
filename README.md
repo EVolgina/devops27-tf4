@@ -70,7 +70,6 @@ yandex_vpc_network.develop
 yandex_vpc_subnet.develop
 module.test-vm.data.yandex_compute_image.my_image
 module.test-vm.yandex_compute_instance.vm[0]
-module.test-vm.yandex_compute_instance.vm[1]
 devops@WORKBOOK:~/ter-homeworks/04/src$ terraform state show module.vpc_module.yandex_vpc_network.vpc
 # module.vpc_module.yandex_vpc_network.vpc:
 resource "yandex_vpc_network" "vpc" {
@@ -119,8 +118,6 @@ The resources that were imported are shown above. These resources are now in
 your Terraform state and will henceforth be managed by Terraform.
 ```
 ```
-devops@WORKBOOK:~/ter-homeworks/04/src/demonstration1$ terraform state rm module.test-vm.yandex_compute_instance.vm[1]
-Removed module.test-vm.yandex_compute_instance.vm[1]
 Successfully removed 1 resource instance(s).
 devops@WORKBOOK:~/ter-homeworks/04/src/demonstration1$ terraform state rm module.test-vm.yandex_compute_instance.vm[0]
 Removed module.test-vm.yandex_compute_instance.vm[0]
@@ -131,7 +128,7 @@ devops@WORKBOOK:~/ter-homeworks/04/src/demonstration1$ terraform import module.t
 ```
 ```
 terraform plan
-Plan: 4 to add, 0 to change, 0 to destroy.
+Plan: 5 to add, 0 to change, 0 to destroy.
 
 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
